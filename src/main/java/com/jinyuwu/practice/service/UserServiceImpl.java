@@ -38,21 +38,20 @@ public class UserServiceImpl implements UserService {
 		return userDao.findByUserName(userName);
 	}
 
+	public User findByUserId(long id) {
+		return userDao.findByUserId(id);
+	}
+
 	@Override
 	@Transactional
 	public void save(CrmUser crmUser) {
 		User user = new User();
-		 // assign user details to the user object
 		user.setUserName(crmUser.getUserName());
 		user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
 		user.setFirstName(crmUser.getFirstName());
 		user.setLastName(crmUser.getLastName());
 		user.setEmail(crmUser.getEmail());
-
-		// give user default role of "employee"
 		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_EMPLOYEE")));
-
-		 // save user in the database
 		userDao.save(user);
 	}
 

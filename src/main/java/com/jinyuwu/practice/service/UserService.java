@@ -8,5 +8,7 @@ public interface UserService extends UserDetailsService {
 
 	public User findByUserName(String userName);
 
+	public User findByUserId(long id);
+
 	public void save(CrmUser crmUser);
 }
