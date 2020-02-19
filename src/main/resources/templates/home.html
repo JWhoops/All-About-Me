@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>Super Warm Home Page</title>
+</head>
+
+<body>
+<h2>Super Warm Home Page</h2>
+<hr>
+<p>
+    Welcome to your home page
+</p>
+<div>
+    <p>User: <span sec:authentication="name"></span></p>
+    <div th:if="${session.user}">
+        <p th:text="'First name: ' + ${session.user.firstName} + ', Last name: ' + ${session.user.lastName} + ', Email: ' + ${session.user.email}"></p>
+    </div>
+</div>
+
+<form th:action="@{/logout}"
+      method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
