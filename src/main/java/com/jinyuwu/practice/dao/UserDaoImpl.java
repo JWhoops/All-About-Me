@@ -3,6 +3,7 @@ package com.jinyuwu.practice.dao;
 import javax.persistence.EntityManager;
 
 import com.jinyuwu.practice.entity.User;
+import com.jinyuwu.practice.user.CrmUser;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void save(User theUser) {
+    public void update(User theUser) {
         Session currentSession = entityManager.unwrap(Session.class);
+        Query theQuery = currentSession.createQuery("update User set firstName=:firstName where id=:uId");
+        theQuery.setParameter("uId", theUser.getId());
+        theQuery.setParameter("firstName", theUser.getFirstName());
+        theQuery.executeUpdate();
+    }
+
+    @Override
+    public void save(User theUser) {
+        // get current hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        // create the user ... finally LOL
         currentSession.saveOrUpdate(theUser);
     }
 }

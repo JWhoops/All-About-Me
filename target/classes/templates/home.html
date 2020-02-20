@@ -14,11 +14,11 @@
 <div>
     <p>User: <span sec:authentication="name"></span></p>
     <div th:if="${session.user}">
-        <p th:text="'First name: ' + ${session.user.firstName} + ', Last name: ' + ${session.user.lastName} + ', Email: ' + ${session.user.email}"></p>
+        <p th:text="'First name: ' + ${user.firstName} + ', Last name: ' + ${user.lastName} + ', Email: ' + ${user.email}"></p>
     </div>
 </div>
 <div>
-    <a th:href="@{/register/showFormForUpdate(userId=${session.user.id})}"
+    <a th:href="@{/register/showFormForUpdate(userId=${user.id})}"
        class="btn btn-info btn-sm">
         Update
     </a>

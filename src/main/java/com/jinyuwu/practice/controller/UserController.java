@@ -1,5 +1,6 @@
 package com.jinyuwu.practice.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,6 @@ public class UserController {
         return "registration-form";
     }
 
-    @GetMapping("/showFormForUpdate")
-    public String showUpdatePage(@RequestParam("userId") long uid, Model model) {
-        User theUser = userService.findByUserId(uid);
-        model.addAttribute("user", theUser);
-        return "update-form";
-    }
 
     @PostMapping("/processRegistrationForm")
     public String processRegistrationForm(
@@ -58,5 +53,20 @@ public class UserController {
         }
         userService.save(theCrmUser);
         return "login";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showUpdatePage(@RequestParam("userId") long uid, Model model) {
+        User theUser = userService.findByUserId(uid);
+        model.addAttribute("user", theUser);
+        return "update-form";
+    }
+
+    @PutMapping("/processUpdateForm")
+    public String processUpdateForm(@ModelAttribute("user") User theUser) {
+        theUser.setPassword(null);
+        System.out.println(theUser.toString());
+        userService.update(theUser);
+        return "redirect:/?userId="+theUser.getId();
     }
 }
