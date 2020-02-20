@@ -2,30 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-    <title>Super Warm Home Page</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
-<h2>Super Warm Home Page</h2>
-<hr>
-<p>
-    Welcome to your home page
-</p>
+<h2 style="margin-left: 15px;">Super Warm Home Page</h2>
 <div>
-    <p>User: <span sec:authentication="name"></span></p>
     <div th:if="${session.user}">
-        <p th:text="'First name: ' + ${user.firstName} + ', Last name: ' + ${user.lastName} + ', Email: ' + ${user.email}"></p>
+        <div class="w3-bar w3-black" style="background: blueviolet !important;">
+            <button class="w3-bar-item w3-button" onclick="openCity('about-me')">About Me</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('my-classes')">My Classes</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('future-goals')">Future Goals</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('fun-stuff')">Fun Stuff</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('other-stuff')">Other Stuff</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('links')">Links</button>
+        </div>
+        <div id="about-me" class="w3-container city">
+            <h3>Personal Information: </h3>
+            <p>User Name: <span sec:authentication="name"></span></p>
+            <p th:text="${'First Name: ' + user.firstName}"/>
+            <p th:text="${'Last Name: ' + user.lastName}"/>
+            <p th:text="${'Email: ' + user.email}"/>
+            <h4>Introduction: </h4>
+<!--            <p style="margin: 0px;" th:text="${user.introduction}"/>-->
+            <textarea rows="4" cols="50" disabled th:text="${user.introduction}" />
+        </div>
+
+        <div id="my-classes" class="w3-container city" style="display:none">
+            <h3>My Classes:</h3>
+            <p th:text="${user.classes}"/>
+        </div>
+
+        <div id="future-goals" class="w3-container city" style="display:none">
+            <h2>Future Goals:</h2>
+            <p th:text="${user.goals}"/>
+        </div>
+
+        <div id="fun-stuff" class="w3-container city" style="display:none">
+            <h2>Fun Stuff:</h2>
+            <p th:text="${user.funStuff}"/>
+        </div>
+        <div id="other-stuff" class="w3-container city" style="display:none">
+            <h2>Ohter Stuff:</h2>
+            <p th:text="${user.otherStuff}"/>
+        </div>
+        <div id="links" class="w3-container city" style="display:none">
+            <h2>Interesting Links:</h2>
+            <p th:text="${user.links}"/>
+        </div>
     </div>
 </div>
-<div>
+<div style="margin-top: 10px; border: 1px solid grey; width: 100%;">
+<div style="display: inline-block; margin: 15px">
     <a th:href="@{/register/showFormForUpdate(userId=${user.id})}"
-       class="btn btn-info btn-sm">
+       class="btn btn-default">
         Update
     </a>
 </div>
-<form th:action="@{/logout}"
+<form style="display: inline-block" th:action="@{/logout}"
       method="POST">
-    <input type="submit" value="Logout"/>
+<!--    <input type="submit" value="Logout"/>-->
+    <button type="submit" class="btn btn-danger" aria-label="Left Align">
+        Logout
+    </button>
 </form>
+</div>
+<script>
+    function openCity(cityName) {
+        var i;
+        var x = document.getElementsByClassName("city");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(cityName).style.display = "block";
+    }
+</script>
 </body>
 </html>

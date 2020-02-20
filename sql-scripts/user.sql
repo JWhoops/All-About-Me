@@ -1,7 +1,7 @@
-DROP DATABASE  IF EXISTS `spring_security_custom_user_demo`;
+DROP DATABASE  IF EXISTS `student`;
 
-CREATE DATABASE  IF NOT EXISTS `spring_security_custom_user_demo`;
-USE `spring_security_custom_user_demo`;
+CREATE DATABASE  IF NOT EXISTS `stuent`;
+USE `student`;
 
 --
 -- Table structure for table `user`
@@ -16,6 +16,12 @@ CREATE TABLE `user` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `introduction` varchar(150) NOT NULL,
+  `classes` varchar(150) NOT NULL,
+  `goals` varchar(150) NOT NULL,
+  `fun_stuff` varchar(150) NOT NULL,
+  `other_stuff` varchar(150) NOT NULL,
+  `links` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -31,9 +37,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (username,password,first_name,last_name,email)
 VALUES 
-('john','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','John','Doe','john@luv2code.com'),
-('mary','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Mary','Public','mary@luv2code.com'),
-('susan','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Susan','Adams','susan@luv2code.com');
+('john','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','John','Doe','john@user.com'),
+('mary','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Mary','Public','mary@user.com'),
+('jinyu','$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K','Jinyu','Adams','jinyu@user.com');
 
 
 --

@@ -18,10 +18,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByUserName(String theUserName) {
         Session currentSession = entityManager.unwrap(Session.class);
-            Query<User> theQuery = currentSession.createQuery("from User where userName=:uName", User.class);
-            theQuery.setParameter("uName", theUserName);
-            User theUser = null;
-            try {
+        Query<User> theQuery = currentSession.createQuery("from User where userName=:uName", User.class);
+        theQuery.setParameter("uName", theUserName);
+        User theUser = null;
+        try {
             theUser = theQuery.getSingleResult();
         } catch (Exception e) {
             theUser = null;
@@ -46,9 +46,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(User theUser) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query theQuery = currentSession.createQuery("update User set firstName=:firstName where id=:uId");
+        String updateQuery = "update User set firstName=:firstName, lastName=:lastName, email=:email," +
+                " introduction=:introduction, classes=:classes, goals=:goals, funStuff=:funStuff, " +
+                "otherStuff=:otherStuff," +
+                " links=:links where id=:uId";
+        Query theQuery = currentSession.createQuery(updateQuery);
         theQuery.setParameter("uId", theUser.getId());
         theQuery.setParameter("firstName", theUser.getFirstName());
+        theQuery.setParameter("lastName", theUser.getLastName());
+        theQuery.setParameter("email", theUser.getEmail());
+        theQuery.setParameter("introduction", theUser.getIntroduction());
+        theQuery.setParameter("classes", theUser.getClasses());
+        theQuery.setParameter("goals", theUser.getGoals());
+        theQuery.setParameter("funStuff", theUser.getFunStuff());
+        theQuery.setParameter("otherStuff", theUser.getOtherStuff());
+        theQuery.setParameter("links", theUser.getLinks());
         theQuery.executeUpdate();
     }
 
