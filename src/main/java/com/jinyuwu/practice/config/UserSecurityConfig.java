@@ -14,19 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    // add a reference to our security data source
     @Autowired
     private UserService userService;
-
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -45,15 +40,10 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
     }
-
-    //beans
-    //bcrypt bean definition
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    //authenticationProvider bean definition
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -61,7 +51,6 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
         return auth;
     }
-
 }
 
 

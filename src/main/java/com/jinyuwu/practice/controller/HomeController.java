@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-
     @Autowired
     private UserService userService;
-
     @GetMapping("/")
     public String showHome(@RequestParam("userId") long uid, Model theModel) {
         User theUser = userService.findByUserId(uid);
